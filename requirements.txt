@@ -1,0 +1,4 @@
+xlsxwriter
+pygame
+scikit-image
+Pillow
