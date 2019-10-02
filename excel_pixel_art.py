@@ -74,37 +74,24 @@ def mainLoop(screen, px):
     return ( topleft + bottomright )
 
 def exceler():
-#    baswidth = 900
-#    img = Image.open(master)
-#    wpercent = (baswidth/float(img.size[0]))
-#    hsize = int((float(img.size[1])*float(wpercent)))
-#    img = img.resize((baswidth,hsize), Image.ANTIALIAS)
-#    img.save('cropin.jpg')
     img = io.imread(output_loc)
     print(img.shape)
     sheetname=argu+".xlsx"
     workbook = xlsxwriter.Workbook(sheetname)
     worksheet = workbook.add_worksheet()
-	#worksheet.set_column('A:DW', 1.5)
-	#worksheet.set_row(1:129, 10)
-
     for row in list(range(0,img.shape[0])):
-    #    worksheet.set_row(row, 1.5)
         for col in list(range(0,img.shape[1])):
             r,g,b=img[row,col].tolist()
             hexx='#'+hex(r).replace('x','0')[-2:]+hex(g).replace('x','0')[-2:]+hex(b).replace('x','0')[-2:]
             cell_format = workbook.add_format()
             cell_format.set_bg_color(hexx)
             worksheet.write(row,col, ' ',cell_format)
-	#       break
-	#    break 21 15 15 18 14 13
 
     for row in list(range(0,img.shape[0])):
         worksheet.set_row(row, 25)
 
     colszrange='A:'+xlsxwriter.utility.xl_col_to_name(img.shape[1])
     worksheet.set_column(colszrange, 4)
-
     workbook.close()
 
 def silentremove(filename):
